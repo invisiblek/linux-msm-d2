@@ -479,7 +479,7 @@ static struct pm8xxx_misc_platform_data pm8xxx_misc_pdata = {
 };
 
 static struct pm8921_bms_platform_data pm8921_bms_pdata __devinitdata = {
-	.r_sense		= 10,
+	.r_sense_uohm		= 10000,
 	.i_test			= 2500,
 	.v_cutoff		= 3000,
 //	.normal_voltage_calc_ms	= 600000,
@@ -979,7 +979,7 @@ static struct pm8xxx_led_platform_data pm8xxx_leds_pdata = {
 };
 
 static struct pm8xxx_ccadc_platform_data pm8xxx_ccadc_pdata = {
-	.r_sense		= 10,
+	.r_sense_uohm		= 10000,
 };
 
 static struct pm8921_platform_data pm8921_platform_data __devinitdata = {

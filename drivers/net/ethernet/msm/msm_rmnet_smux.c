@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -620,7 +620,7 @@ static int rmnet_xmit(struct sk_buff *skb, struct net_device *dev)
 	spin_lock_irqsave(&p->tx_queue_lock, flags);
 	ret = _rmnet_xmit(skb, dev);
 
-	if (msm_smux_is_ch_full(p->ch_id) || (ret == -EAGAIN)) {
+	if (ret == -EAGAIN) {
 		/*
 		 * EAGAIN means we attempted to overflow the high watermark
 		 * Clearly the queue is not stopped like it should be, so

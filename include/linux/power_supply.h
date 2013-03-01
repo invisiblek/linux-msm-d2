@@ -166,7 +166,6 @@ enum power_supply_type {
 	POWER_SUPPLY_TYPE_DUMMY,        /* # 10 is assigned for wireless */
 #endif
 	POWER_SUPPLY_TYPE_OTG,
-
 };
 
 union power_supply_propval {

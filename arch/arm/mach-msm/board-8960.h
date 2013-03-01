@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -84,7 +84,7 @@ enum {
 	SX150X_LIQUID,
 };
 
-#endif
+
 
 extern struct sx150x_platform_data msm8960_sx150x_data[];
 extern struct msm_camera_board_info msm8960_camera_board_info;
@@ -117,4 +117,5 @@ extern void msm_otg_set_id_state(bool);
 int brcm_wlan_init(void);
 int brcm_wifi_status_register(
         void (*callback)(int card_present, void *dev_id), void *dev_id);
+#endif
 #endif
