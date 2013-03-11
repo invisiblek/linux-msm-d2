@@ -4570,6 +4570,7 @@ void dhd_detach(dhd_pub_t *dhdp)
 		wake_lock_destroy(&dhd->wl_wifi);
 		wake_lock_destroy(&dhd->wl_rxwake);
 		wake_lock_destroy(&dhd->wl_ctrlwake);
+		wake_lock_destroy(&dhd->wl_wdwake);
 #if defined(CUSTOMER_HW4) && defined(PNO_SUPPORT)
 	wake_lock_destroy(&dhdp->pno_wakelock);
 #endif
