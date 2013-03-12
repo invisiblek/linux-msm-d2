@@ -18,7 +18,7 @@
 #include "mpq_dmx_plugin_common.h"
 #include "mpq_sdmx.h"
 
-#define SDMX_MAJOR_VERSION_MATCH	(2)
+#define SDMX_MAJOR_VERSION_MATCH	(3)
 
 #define TS_PACKET_HEADER_LENGTH (4)
 
@@ -94,6 +94,10 @@ module_param(mpq_bypass_sdmx, int, S_IRUGO | S_IWUSR);
 /* Max number of TS packets allowed as input for a single sdmx process */
 static int mpq_sdmx_proc_limit = MAX_TS_PACKETS_FOR_SDMX_PROCESS;
 module_param(mpq_sdmx_proc_limit, int, S_IRUGO | S_IWUSR);
+
+/* Debug flag for secure demux process */
+static int mpq_sdmx_debug;
+module_param(mpq_sdmx_debug, int, S_IRUGO | S_IWUSR);
 
 
 /**
@@ -4421,7 +4425,8 @@ static int mpq_sdmx_process_buffer(struct mpq_demux *mpq_demux,
 {
 	struct sdmx_filter_status *sts;
 	struct mpq_feed *mpq_feed;
-	u8 flags = 0;	/* MPQ_TODO: EOS handling */
+	/* MPQ_TODO: EOS handling */
+	u8 flags = mpq_sdmx_debug ? SDMX_INPUT_FLAG_DBG_ENABLE : 0;
 	u32 errors;
 	u32 status;
 	u32 prev_read_offset;
