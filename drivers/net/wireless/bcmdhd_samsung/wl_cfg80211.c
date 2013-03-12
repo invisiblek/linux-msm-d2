@@ -10230,7 +10230,7 @@ wl_cfg80211_set_band(struct net_device *ndev, int band)
 
 	return 0;
 }
-#endif /* WL_HOST_BAND_MGMT */
+#endif
 
 #if defined(DHCP_SCAN_SUPPRESS)
 static void wl_cfg80211_scan_supp_timerfunc(ulong data)
@@ -10298,4 +10298,4 @@ int wl_cfg80211_scan_suppress(struct net_device *dev, int suppress)
 
 	return ret;
 }
-#endif /* DHCP_SCAN_SUPPRESS */
+#endif

@@ -687,7 +687,7 @@ extern uint dhd_force_tx_queueing;
 #define DEFAULT_KEEP_ALIVE_VALUE       55000 /* msec */
 #ifndef CUSTOM_KEEP_ALIVE_SETTING
 #define CUSTOM_KEEP_ALIVE_SETTING      DEFAULT_KEEP_ALIVE_VALUE
-#endif /* DEFAULT_KEEP_ALIVE_VALUE *
+#endif /* DEFAULT_KEEP_ALIVE_VALUE */
 #define NULL_PKT_STR	"null_pkt"
 
 /* hooks for custom glom setting option via Makefile */

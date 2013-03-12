@@ -3596,6 +3596,9 @@ dhd_preinit_ioctls(dhd_pub_t *dhd)
 	char eventmask[WL_EVENTING_MASK_LEN];
 	char iovbuf[WL_EVENTING_MASK_LEN + 12];	/*  Room for "event_msgs" + '\0' + bitvec  */
 
+#if defined(VSDB) && defined(CUSTOMER_HW4)
+	int interference_mode = 3;
+#endif
 #if !defined(WL_CFG80211)
 	uint up = 0;
 #endif /* !defined(WL_CFG80211) */
@@ -3664,9 +3667,6 @@ dhd_preinit_ioctls(dhd_pub_t *dhd)
 #endif
 #endif /* DISABLE_11N */
 dhd->suspend_bcn_li_dtim = CUSTOM_SUSPEND_BCN_LI_DTIM;
-#if defined(VSDB) && defined(CUSTOMER_HW4)
-	int interference_mode = 3;
-#endif
 #ifdef PROP_TXSTATUS
 #ifdef PROP_TXSTATUS_VSDB
 	dhd->wlfc_enabled = FALSE;
