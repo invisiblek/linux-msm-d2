@@ -615,6 +615,9 @@ static int mipi_dsi_probe(struct platform_device *pdev)
 	register_mipi_dev(pdev);
 #endif
 
+	if (!mfd->cont_splash_done)
+		cont_splash_clk_ctrl(1);
+
 	return 0;
 
 mipi_dsi_probe_err:
