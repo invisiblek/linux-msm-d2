@@ -862,7 +862,7 @@ int execute_cmdmsg(struct a2220_data *a2220, unsigned int msg)
 	msgbuf[2] = (msg >> 8) & 0xFF;
 	msgbuf[3] = msg & 0xFF;
 
-	pr_info("%s : execute_cmdmsg :: %x %x %x %x\n" , __func__,
+	pr_debug("%s : execute_cmdmsg :: %x %x %x %x\n" , __func__,
 			msgbuf[0] , msgbuf[1] , msgbuf[2] , msgbuf[3]);
 	memcpy(chkbuf, msgbuf, 4);
 
@@ -872,7 +872,7 @@ int execute_cmdmsg(struct a2220_data *a2220, unsigned int msg)
 		a2220_i2c_sw_reset(a2220, sw_reset);
 
 		if (msg == A100_msg_Sleep) {
-			pr_info("execute_cmdmsg ...go to suspend first\n");
+			pr_debug("execute_cmdmsg ...go to suspend first\n");
 			a2220->suspended = 1;
 			msleep(120);
 
@@ -883,7 +883,7 @@ int execute_cmdmsg(struct a2220_data *a2220, unsigned int msg)
 	pr_debug("execute_cmdmsg + 1\n");
 	/* We don't need to get Ack after sending out a suspend command */
 	if (msg == A100_msg_Sleep) {
-		pr_info("%s : ...go to suspend first\n", __func__);
+		pr_debug("%s : ...go to suspend first\n", __func__);
 		a2220->suspended = 1;
 
 		return rc;
@@ -913,12 +913,12 @@ int execute_cmdmsg(struct a2220_data *a2220, unsigned int msg)
 			rc = -EINVAL;
 			pr_debug("execute_cmdmsg + 5\n");
 		} else if (msgbuf[0] == 0x00 && msgbuf[1] == 0x00) {
-			pr_err("%s: not ready (%d retries)\n", __func__,
+			pr_debug("%s: not ready (%d retries)\n", __func__,
 					retries);
 			pr_debug("execute_cmdmsg + 6\n");
 			rc = -EBUSY;
 		} else {
-			pr_info("%s: cmd/ack mismatch: (%d retries left)\n",
+			pr_debug("%s: cmd/ack mismatch: (%d retries left)\n",
 					__func__,
 					retries);
 			pr_err("%s: msgbuf[0] = %x\n", __func__, msgbuf[0]);
@@ -937,7 +937,7 @@ int execute_cmdmsg(struct a2220_data *a2220, unsigned int msg)
 		a2220_i2c_sw_reset(a2220, sw_reset);
 	}
 
-	pr_info("execute_cmdmsg - finish\n");
+	pr_debug("execute_cmdmsg - finish\n");
 
 	return rc;
 }
