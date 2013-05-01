@@ -76,12 +76,14 @@ static char V255_300CD_G_LSB;
 
 static char V255_300CD_B_MSB;
 static char V255_300CD_B_LSB;
-int color_mods[3][21] = {
+int color_mods[5][21] = {
     {  0,  0,  5, -18, -16, -10, 0, 0,  3, 0, 0,  3, 0, 0,  3, 0, 0,  3, 0, 0,  3 },
+    {  0,  0,  2,  -9,  -8,  -5, 0, 0,  1, 0, 0,  1, 0, 0,  1, 0, 0,  1, 0, 0,  1 },
     {  0,  0,  0,   0,   0,   0, 0, 0,  0, 0, 0,  0, 0, 0,  0, 0, 0,  0, 0, 0,  0 },
+    {  0,  0, -2,   9,   8,   5, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1 },
     {  0,  0, -5,  18,  16,  10, 0, 0, -3, 0, 0, -3, 0, 0, -3, 0, 0, -3, 0, 0, -3 }
 };
-unsigned int trinval = 1;
+unsigned int trinval = 2;
 struct SMART_DIM *gpsmart;
 
 static int char_to_int(char data1)

@@ -254,7 +254,7 @@ const struct firmware *fw_mbin[SECTION_NUM];
 static unsigned char g_wr_buf[1024 + 3 + 2];
 #endif
 
-unsigned int Lpanel_colors = 1;
+unsigned int Lpanel_colors = 2;
 extern void panel_load_colors(unsigned int val);
 
 int touch_is_pressed;
@@ -2917,8 +2917,8 @@ static ssize_t panel_colors_store(struct device *dev, struct device_attribute *a
 
 	if (value < 0)
 		value = 0;
-	else if (value > 2)
-		value = 2;
+	else if (value > 4)
+		value = 4;
 
 	Lpanel_colors = value;
 
