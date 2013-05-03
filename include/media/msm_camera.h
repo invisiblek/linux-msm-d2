@@ -1,5 +1,5 @@
-/* Copyright (c) 2009-2012, The Linux Foundation. All rights reserved.
- *
+/* Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
+*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
  * only version 2 as published by the Free Software Foundation.
@@ -823,7 +823,6 @@ struct msm_snapshot_pp_status {
 #define CFG_SET_ACTUATOR_INFO		34
 #define CFG_GET_ACTUATOR_INFO		35
 #define CFG_MAX			36
-
 
 #define MOVE_NEAR	0
 #define MOVE_FAR	1
