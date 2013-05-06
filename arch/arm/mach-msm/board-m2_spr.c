@@ -181,10 +181,6 @@
 #include <asm/kexec.h>
 #endif
 
-#ifdef CONFIG_ANDROID_RAM_CONSOLE
-#include <linux/persistent_ram.h>
-#endif
-
 extern int system_rev;
 #ifdef CONFIG_TOUCHSCREEN_MMS144
 struct tsp_callbacks *charger_callbacks;
@@ -358,7 +354,7 @@ static struct msm_gpiomux_config msm8960_sec_ts_configs[] = {
 #define MSM_LIQUID_ION_SF_SIZE MSM_LIQUID_PMEM_SIZE
 #define MSM_HDMI_PRIM_ION_SF_SIZE MSM_HDMI_PRIM_PMEM_SIZE
 
-#define MSM8960_FIXED_AREA_START 0xb0000000
+#define MSM8960_FIXED_AREA_START 0xa0000000
 #define MAX_FIXED_AREA_SIZE	0x10000000
 #define MSM_MM_FW_SIZE		0x200000
 #define MSM8960_FW_START	(MSM8960_FIXED_AREA_START - MSM_MM_FW_SIZE)
@@ -987,43 +983,12 @@ static int __init ext_display_setup(char *param)
 }
 early_param("ext_display", ext_display_setup);
 
-/* Exclude the last 4 kB to preserve the kexec hardboot page. */
-#ifdef CONFIG_ANDROID_RAM_CONSOLE
-#define RAM_CONSOLE_START 0xfff00000
-#define RAM_CONSOLE_SIZE  (SZ_1M-SZ_4K)
-
-static struct platform_device ram_console_device = {
-	.name          = "ram_console",
-	.id            = -1,
-};
-
-struct persistent_ram_descriptor ram_console_desc = {
-	.name = "ram_console",
-	.size = RAM_CONSOLE_SIZE,
-};
-
-struct persistent_ram ram_console_ram = {
-	.start = RAM_CONSOLE_START,
-	.size = RAM_CONSOLE_SIZE,
-	.num_descs = 1,
-	.descs = &ram_console_desc,
-};
-#endif
-
-unsigned int address = 0xea000000;
-unsigned int size = 0x100000;
-
 static void __init msm8960_reserve(void)
 {
-	int ret;
 	msm8960_set_display_params(prim_panel_name, ext_panel_name);
 	msm_reserve();
 
-	if (system_rev >= 14) {
-		pr_err("Reserving memory at address %x size: %x\n", address, size);
-		ret = memblock_remove(address, size);
-		BUG_ON(ret);
-	}
+	add_persistent_ram();
 
 #ifdef CONFIG_KEXEC_HARDBOOT
 	memblock_remove(KEXEC_HB_PAGE_ADDR, SZ_4K);
@@ -1033,10 +998,6 @@ static void __init msm8960_reserve(void)
 static void __init msm8960_allocate_memory_regions(void)
 {
 	msm8960_allocate_fb_region();
-#ifdef CONFIG_ANDROID_RAM_CONSOLE
-	persistent_ram_early_init(&ram_console_ram);
-#endif
-
 }
 #ifdef CONFIG_KEYBOARD_CYPRESS_TOUCH_236
 static void cypress_power_onoff(int onoff)
@@ -5279,9 +5240,6 @@ static void __init msm8960_tsens_init(void)
 
 static void __init samsung_m2_spr_init(void)
 {
-#ifdef CONFIG_ANDROID_RAM_CONSOLE
-	platform_device_register(&ram_console_device);
-#endif
 #ifdef CONFIG_SEC_DEBUG
 	sec_debug_init();
 #endif
@@ -5339,6 +5297,8 @@ static void __init samsung_m2_spr_init(void)
 	msm8960_device_qup_spi_gsbi11.dev.platform_data =
 				&msm8960_qup_spi_gsbi11_pdata;
 #endif
+
+	add_ramconsole_devices();
 
 #ifndef CONFIG_S5C73M3
 	spi_register_board_info(spi_board_info, ARRAY_SIZE(spi_board_info));
