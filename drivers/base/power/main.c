@@ -1009,7 +1009,7 @@ int dpm_suspend_end(pm_message_t state)
 	int error = dpm_suspend_late(state);
 	if (error)
 		return error;
-# MAGICMAGIC
+// MAGICMAGIC
 	error = dpm_suspend_noirq(state);
 	if (error)
 		dpm_resume_early(resume_event(state));
@@ -1024,7 +1024,7 @@ int dpm_suspend_end(pm_message_t state)
 
 	return 0;
 */
-# end MAGICMAGIC
+// end MAGICMAGIC
 }
 EXPORT_SYMBOL_GPL(dpm_suspend_end);
 
@@ -1146,10 +1146,10 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
 
 	device_unlock(dev);
 
-# MAGICMAGIC
+// MAGICMAGIC
 	del_timer_sync(&timer);
 	destroy_timer_on_stack(&timer);
-# end MAGICMAGIC
+// end MAGICMAGIC
 
  Complete:
 	complete_all(&dev->power.completion);
