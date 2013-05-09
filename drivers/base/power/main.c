@@ -1018,7 +1018,7 @@ int dpm_suspend_end(pm_message_t state)
 /* MAGICALLY DELICIOUS
 	error = dpm_suspend_noirq(state);
 	if (error) {
-		dpm_resume_early(state);
+		dpm_resume_early(resume_event(state));
 		return error;
 	}
 
