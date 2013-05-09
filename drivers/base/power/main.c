@@ -1009,10 +1009,22 @@ int dpm_suspend_end(pm_message_t state)
 	int error = dpm_suspend_late(state);
 	if (error)
 		return error;
+# MAGICMAGIC
 	error = dpm_suspend_noirq(state);
 	if (error)
 		dpm_resume_early(resume_event(state));
 	return error;
+
+/* MAGICALLY DELICIOUS
+	error = dpm_suspend_noirq(state);
+	if (error) {
+		dpm_resume_early(state);
+		return error;
+	}
+
+	return 0;
+*/
+# end MAGICMAGIC
 }
 EXPORT_SYMBOL_GPL(dpm_suspend_end);
 
