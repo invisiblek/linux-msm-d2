@@ -1257,10 +1257,7 @@ static void sdhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
 				MMC_SEND_TUNING_BLOCK_HS200 :
 				MMC_SEND_TUNING_BLOCK;
 			spin_unlock_irqrestore(&host->lock, flags);
-# MAGICMAGIC
 			sdhci_execute_tuning(mmc);
-#			sdhci_execute_tuning(mmc, tuning_opcode);
-# end MAGICMAGIC
 			spin_lock_irqsave(&host->lock, flags);
 
 			/* Restore original mmc_request structure */
